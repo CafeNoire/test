@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-function App() {
+function App(props) {
+  const [apiData, setApiData] = useState("");
+  const [search, setSearch] = useState("");
+  const [imgAlbum, setImgAlbum] = useState('');
+  const [songTitle,setSingTitle] = useState('');
+  const [albumTitle,setAlbumTitle] = useState('');
+  const [artistName,setArtistName] = useState('');
+
+
+  useEffect(() => {
+    axios
+      .get("https://itunes.apple.com/search?term=jack+johnson")
+      .then((response) => {
+        setApiData(response.data.results);
+      });
+  }, []);
+  console.log(apiData);
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     
+    
+        
+      
     </div>
   );
 }

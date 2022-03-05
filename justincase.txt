@@ -1,0 +1,109 @@
+navbar
+import { Button } from "@mui/material";
+import { Badge } from "@mui/material";
+import AudiotrackIcon from "@mui/icons-material/Audiotrack";
+import React from "react";
+import { useState } from "react";
+import "../style/navbar.css"
+
+const Navbar = () => {
+    const [search,setSearch] = useState('');
+ 
+  return (
+    <>
+      <nav className="navbar">
+        <div className="logo">
+          <h1>OurTunes <span><Badge>
+            <AudiotrackIcon />
+          </Badge></span></h1>
+          
+        </div>
+        <div className="search">
+          <input
+            type="search"
+            placeholder="Search"
+            id="search-input"
+            onChange={(e) => setSearch(e.target.value)}
+            value="search"
+          ></input>
+          <Button>←</Button>
+          <Button>Search </Button>
+        </div>
+      </nav>
+    </>
+  );
+};
+
+export default Navbar;
+
+card
+
+import React from 'react';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+//import { useState } from "react";
+//import { useEffect } from "react";
+//import axios from "axios";
+
+const CardTunes = () => {
+    
+    return (
+        
+        <div className='card'>
+            <Card sx={{ maxWidth: 345 }}>
+            <CardMedia
+                component={apiData.artworkUrl100}
+                height="140"
+                image=''
+                alt="green iguana"
+            />
+            <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                Titre de la chanson : {apiData.trackName}
+                </Typography>
+                <Typography variant="h6" color="text.secondary">
+                Nom de l'album : {apiData.collectionName}
+                </Typography>
+                <Typography variant="h6">
+                    Nom de l'artiste : {apiData.artistName}
+                </Typography>
+            </CardContent>
+            <CardActions>
+                <Button size="small">Add to card</Button>
+            </CardActions>
+            </Card>
+       </div> 
+  );
+}
+
+export default CardTunes;
+
+container 
+import React from "react";
+import CardTunes from "./CardTunes";
+//import { useState } from "react";
+//import { useEffect } from "react";
+//import axios from "axios";
+
+const Container = (props) => {
+ 
+
+  return (
+    <div className="container">
+      <CardTunes />
+    </div>
+  );
+};
+
+export default Container;
+
+const [apiData, setApiData] = useState("");
+    useEffect(() => {
+      axios.get(`https://itunes.apple.com/search?term=jack+johnson`).then((response) => {
+        setApiData(response.result).catch((err) => console.log(err));
+      });
+    }, []);
